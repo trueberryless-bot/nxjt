@@ -52,9 +52,15 @@ test.describe('page', () => {
   })
 
   test('does not scroll horizontally', async ({ page }) => {
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    const overflowing = await page.evaluate(() => {
+      const width = document.documentElement.clientWidth
 
-    expect(overflow).toBeLessThanOrEqual(0)
+      return [...document.querySelectorAll('body *')]
+        .filter((element) => element.getBoundingClientRect().right > width + 0.5)
+        .map((element) => `${element.tagName.toLowerCase()}${element.className ? `.${element.className}` : ''} ${Math.round(element.getBoundingClientRect().right)}>${width}`)
+    })
+
+    expect(overflowing).toEqual([])
   })
 
   test('has no accessibility violations', async ({ page }) => {
