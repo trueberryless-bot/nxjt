@@ -83,6 +83,7 @@ const ogImageUrl = new URL("/og-image.png", Astro.site);
     color: var(--color-gray-300);
     display: grid;
     font-family: var(--font-sans);
+    grid-template-columns: minmax(0, 1fr);
     line-height: 1.6;
     place-items: center;
   }
@@ -90,6 +91,7 @@ const ogImageUrl = new URL("/og-image.png", Astro.site);
   main {
     display: block;
     max-width: 30rem;
+    min-width: 0;
     padding-inline: 1rem;
     width: 100%;
   }
